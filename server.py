@@ -8,7 +8,7 @@ from starlette.responses import JSONResponse
 
 from fastmcp_credentials import CredentialMiddleware, HeaderCredentialBackend
 
-from cli import parse_args
+from mongodb_mcp.cli import parse_args
 from mongodb_mcp.config import BREAKING_CHANGES, SERVER_VERSION, configure_logging
 from mongodb_mcp.tools import register_tools
 
