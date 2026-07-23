@@ -38,14 +38,13 @@ def register_projects_tools(mcp: FastMCP) -> None:
         name: str = Field(
             description=(
                 "Human-readable label that identifies the project, as a plain string "
-                "1-64 characters (e.g. 'Production'). Required."
+                "1-64 characters (e.g. 'Production')."
             )
         ),
         orgId: str = Field(
             description=(
                 "Unique 24-hexadecimal digit string that identifies the MongoDB Cloud "
-                "organization the project belongs to (e.g. '32b6e34b3d91647abb20e7b8'). "
-                "Required."
+                "organization the project belongs to (e.g. '32b6e34b3d91647abb20e7b8')."
             )
         ),
         regionUsageRestrictions: str | None = Field(
@@ -124,7 +123,7 @@ def register_projects_tools(mcp: FastMCP) -> None:
             description=(
                 "Unique 24-hexadecimal digit string that identifies the project "
                 "(e.g. '32b6e34b3d91647abb20e7b8'). Groups and projects are synonymous "
-                "terms — your group id is the same as your project id. Required."
+                "terms — your group id is the same as your project id."
             )
         ),
     ) -> ProjectResult:
@@ -212,7 +211,7 @@ def register_projects_tools(mcp: FastMCP) -> None:
         groupId: str = Field(
             description=(
                 "Unique 24-hexadecimal digit string that identifies the project to update "
-                "(e.g. '32b6e34b3d91647abb20e7b8'). Required."
+                "(e.g. '32b6e34b3d91647abb20e7b8')."
             )
         ),
         name: str | None = Field(
@@ -292,8 +291,7 @@ def register_projects_tools(mcp: FastMCP) -> None:
         groupId: str = Field(
             description=(
                 "Unique 24-hexadecimal digit string that identifies the project to remove "
-                "(e.g. '32b6e34b3d91647abb20e7b8'). The project must have no clusters. "
-                "Required."
+                "(e.g. '32b6e34b3d91647abb20e7b8'). The project must have no clusters."
             )
         ),
     ) -> ProjectResult:
@@ -314,4 +312,4 @@ def register_projects_tools(mcp: FastMCP) -> None:
 
         # 204 No Content on success — nothing to parse into ProjectData.
         tlog.success()
-        return ProjectResult(success=True, statusCode=204, data=None)
+        return ProjectResult(success=True, statusCode=status, data=None)

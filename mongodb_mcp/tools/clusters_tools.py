@@ -71,16 +71,16 @@ def register_clusters_tools(mcp: FastMCP) -> None:
             description="Unique 24-hexadecimal digit string that identifies the project (group). Format: ^([a-f0-9]{24})$."
         ),
         include_count: bool = Field(
-            default=True, description="Flag that indicates whether the response returns the total number of items (totalCount)."
+            default=True, description="Flag that indicates whether the response returns the total number of items (totalCount). Optional, defaults to true."
         ),
         items_per_page: int = Field(
-            default=100, description="Number of items that the response returns per page. Min 1, max 500."
+            default=100, description="Number of items that the response returns per page. Min 1, max 500. Optional, defaults to 100."
         ),
         page_num: int = Field(
-            default=1, description="Number of the page that displays the current set of the total objects. Min 1."
+            default=1, description="Number of the page that displays the current set of the total objects. Min 1. Optional, defaults to 1."
         ),
         include_deleted_with_retained_backups: bool = Field(
-            default=False, description="Flag that indicates whether to return clusters with retained backups."
+            default=False, description="Flag that indicates whether to return clusters with retained backups. Optional, defaults to false."
         ),
     ) -> ClusterListResult:
         tlog = ToolLogger(logger, "list_clusters")
@@ -119,13 +119,13 @@ def register_clusters_tools(mcp: FastMCP) -> None:
     )
     def list_all_clusters(
         include_count: bool = Field(
-            default=True, description="Flag that indicates whether the response returns the total number of items (totalCount)."
+            default=True, description="Flag that indicates whether the response returns the total number of items (totalCount). Optional, defaults to true."
         ),
         items_per_page: int = Field(
-            default=100, description="Number of items that the response returns per page. Min 1, max 500."
+            default=100, description="Number of items that the response returns per page. Min 1, max 500. Optional, defaults to 100."
         ),
         page_num: int = Field(
-            default=1, description="Number of the page that displays the current set of the total objects. Min 1."
+            default=1, description="Number of the page that displays the current set of the total objects. Min 1. Optional, defaults to 1."
         ),
     ) -> AllClusterListResult:
         tlog = ToolLogger(logger, "list_all_clusters")
