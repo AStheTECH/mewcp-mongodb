@@ -1,9 +1,0 @@
-{
-  "manifest_server_block": true,
-  "planning": true,
-  "infra": true,
-  "tool_groups": { "projects": true, "clusters": true },
-  "validation_rounds": 1,
-  "validation_passed": true,
-  "readme": true
-}
