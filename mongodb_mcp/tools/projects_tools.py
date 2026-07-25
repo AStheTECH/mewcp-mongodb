@@ -1,4 +1,6 @@
-"""Projects group: create_project, delete_project, get_project, list_projects, update_project."""
+"""Projects group: create_project, delete_project, get_project, get_project_by_name,
+get_project_limit, list_project_ip_addresses, list_project_limits, list_projects,
+update_project."""
 
 import logging
 
@@ -11,6 +13,12 @@ from ..config import CONNECT_TIMEOUT, READ_TIMEOUT
 from ..logging_utils import ToolLogger
 from ..schemas.projects import (
     ProjectData,
+    ProjectIpAddressListData,
+    ProjectIpAddressListResult,
+    ProjectLimitData,
+    ProjectLimitListData,
+    ProjectLimitListResult,
+    ProjectLimitResult,
     ProjectListData,
     ProjectListResult,
     ProjectResult,
@@ -313,3 +321,197 @@ def register_projects_tools(mcp: FastMCP) -> None:
         # 204 No Content on success — nothing to parse into ProjectData.
         tlog.success()
         return ProjectResult(success=True, statusCode=status, data=None)
+
+    @mcp.tool(
+        name="get_project_by_name",
+        description="Returns one project matched by its name.",
+        annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False, openWorldHint=True),
+    )
+    def get_project_by_name(
+        groupName: str = Field(
+            description=(
+                "Human-readable label that identifies this project. Minimum length is 1, "
+                "maximum length is 64."
+            )
+        ),
+        envelope: bool | None = Field(
+            default=None,
+            description="Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false.",
+        ),
+        pretty: bool | None = Field(
+            default=None,
+            description="Flag that indicates whether the response body should be in the prettyprint format. Default: false.",
+        ),
+    ) -> ProjectResult:
+        tlog = ToolLogger(logger, "get_project_by_name")
+
+        if not groupName or not groupName.strip():
+            return _err(ProjectResult, tlog, "VALIDATION_ERROR", "groupName must be a non-empty string", 400)
+
+        params: dict = {}
+        if envelope is not None:
+            params["envelope"] = envelope
+        if pretty is not None:
+            params["pretty"] = pretty
+
+        try:
+            data, status, retry_after = service.api_request(
+                "GET", f"/groups/byName/{groupName}", params=params or None, timeout=TIMEOUT,
+            )
+        except Exception as exc:
+            return _handle_request_exc(ProjectResult, tlog, exc)
+
+        if not (200 <= status < 300):
+            return _upstream_err(ProjectResult, tlog, status, data, retry_after)
+
+        tlog.success()
+        return ProjectResult(success=True, statusCode=status, data=ProjectData(**data))
+
+    @mcp.tool(
+        name="list_project_ip_addresses",
+        description=(
+            "Returns the outbound IP addresses Atlas uses for cluster infrastructure and "
+            "peered/private networks in this project."
+        ),
+        annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False, openWorldHint=True),
+    )
+    def list_project_ip_addresses(
+        groupId: str = Field(
+            description="Unique 24-hexadecimal digit string that identifies the project."
+        ),
+        envelope: bool | None = Field(
+            default=None,
+            description="Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false.",
+        ),
+        pretty: bool | None = Field(
+            default=None,
+            description="Flag that indicates whether the response body should be in the prettyprint format. Default: false.",
+        ),
+    ) -> ProjectIpAddressListResult:
+        tlog = ToolLogger(logger, "list_project_ip_addresses")
+
+        if not groupId or not groupId.strip():
+            return _err(ProjectIpAddressListResult, tlog, "VALIDATION_ERROR", "groupId must be a non-empty string", 400)
+
+        params: dict = {}
+        if envelope is not None:
+            params["envelope"] = envelope
+        if pretty is not None:
+            params["pretty"] = pretty
+
+        try:
+            data, status, retry_after = service.api_request(
+                "GET", f"/groups/{groupId}/ipAddresses", params=params or None, timeout=TIMEOUT,
+            )
+        except Exception as exc:
+            return _handle_request_exc(ProjectIpAddressListResult, tlog, exc)
+
+        if not (200 <= status < 300):
+            return _upstream_err(ProjectIpAddressListResult, tlog, status, data, retry_after)
+
+        tlog.success()
+        return ProjectIpAddressListResult(success=True, statusCode=status, data=ProjectIpAddressListData(**data))
+
+    @mcp.tool(
+        name="list_project_limits",
+        description="Returns all configurable resource limits and their current usage for one project.",
+        annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False, openWorldHint=True),
+    )
+    def list_project_limits(
+        groupId: str = Field(
+            description="Unique 24-hexadecimal digit string that identifies the project."
+        ),
+        envelope: bool | None = Field(
+            default=None,
+            description="Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false.",
+        ),
+        pretty: bool | None = Field(
+            default=None,
+            description="Flag that indicates whether the response body should be in the prettyprint format. Default: false.",
+        ),
+    ) -> ProjectLimitListResult:
+        tlog = ToolLogger(logger, "list_project_limits")
+
+        if not groupId or not groupId.strip():
+            return _err(ProjectLimitListResult, tlog, "VALIDATION_ERROR", "groupId must be a non-empty string", 400)
+
+        params: dict = {}
+        if envelope is not None:
+            params["envelope"] = envelope
+        if pretty is not None:
+            params["pretty"] = pretty
+
+        try:
+            data, status, retry_after = service.api_request(
+                "GET", f"/groups/{groupId}/limits", params=params or None, timeout=TIMEOUT,
+            )
+        except Exception as exc:
+            return _handle_request_exc(ProjectLimitListResult, tlog, exc)
+
+        if not (200 <= status < 300):
+            return _upstream_err(ProjectLimitListResult, tlog, status, data, retry_after)
+
+        tlog.success()
+        # This endpoint returns a bare JSON array of limit objects, not a wrapped object.
+        limits = data if isinstance(data, list) else data.get("results", [])
+        return ProjectLimitListResult(success=True, statusCode=status, data=ProjectLimitListData(limits=limits))
+
+    @mcp.tool(
+        name="get_project_limit",
+        description="Returns one resource limit by name for one project.",
+        annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False, openWorldHint=True),
+    )
+    def get_project_limit(
+        groupId: str = Field(
+            description="Unique 24-hexadecimal digit string that identifies the project."
+        ),
+        limitName: str = Field(
+            description=(
+                "Human-readable label that identifies this project limit. One of: "
+                "atlas.project.security.databaseAccess.users, "
+                "atlas.project.deployment.clusters, "
+                "atlas.project.deployment.serverlessMTMs, "
+                "atlas.project.security.databaseAccess.customRoles, "
+                "atlas.project.security.networkAccess.entries, "
+                "atlas.project.security.networkAccess.crossRegionEntries, "
+                "atlas.project.deployment.nodesPerPrivateLinkRegion, "
+                "dataFederation.bytesProcessed.query, dataFederation.bytesProcessed.daily, "
+                "dataFederation.bytesProcessed.weekly, dataFederation.bytesProcessed.monthly, "
+                "atlas.project.deployment.privateServiceConnectionsPerRegionGroup, or "
+                "atlas.project.deployment.privateServiceConnectionsSubnetMask."
+            )
+        ),
+        envelope: bool | None = Field(
+            default=None,
+            description="Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false.",
+        ),
+        pretty: bool | None = Field(
+            default=None,
+            description="Flag that indicates whether the response body should be in the prettyprint format. Default: false.",
+        ),
+    ) -> ProjectLimitResult:
+        tlog = ToolLogger(logger, "get_project_limit")
+
+        if not groupId or not groupId.strip():
+            return _err(ProjectLimitResult, tlog, "VALIDATION_ERROR", "groupId must be a non-empty string", 400)
+        if not limitName or not limitName.strip():
+            return _err(ProjectLimitResult, tlog, "VALIDATION_ERROR", "limitName must be a non-empty string", 400)
+
+        params: dict = {}
+        if envelope is not None:
+            params["envelope"] = envelope
+        if pretty is not None:
+            params["pretty"] = pretty
+
+        try:
+            data, status, retry_after = service.api_request(
+                "GET", f"/groups/{groupId}/limits/{limitName}", params=params or None, timeout=TIMEOUT,
+            )
+        except Exception as exc:
+            return _handle_request_exc(ProjectLimitResult, tlog, exc)
+
+        if not (200 <= status < 300):
+            return _upstream_err(ProjectLimitResult, tlog, status, data, retry_after)
+
+        tlog.success()
+        return ProjectLimitResult(success=True, statusCode=status, data=ProjectLimitData(**data))

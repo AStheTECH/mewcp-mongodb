@@ -67,3 +67,56 @@ class ProjectUpdateData(BaseModel):
 
 class ProjectUpdateResult(ToolResult):
     data: ProjectUpdateData | None = None
+
+
+class ProjectIpAddressClusterData(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    clusterName: str | None = None
+    inbound: list[str] | None = None
+    outbound: list[str] | None = None
+    futureInbound: list[str] | None = None
+    futureOutbound: list[str] | None = None
+
+
+class ProjectIpAddressServicesData(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    clusters: list[ProjectIpAddressClusterData] | None = None
+
+
+class ProjectIpAddressListData(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    groupId: str | None = None
+    services: ProjectIpAddressServicesData | None = None
+
+
+class ProjectIpAddressListResult(ToolResult):
+    data: ProjectIpAddressListData | None = None
+
+
+class ProjectLimitData(BaseModel):
+    """A single configurable resource limit and its current usage for one project."""
+
+    model_config = ConfigDict(extra="allow")
+
+    name: str | None = None
+    value: int | None = None
+    currentUsage: int | None = None
+    defaultLimit: int | None = None
+    maximumLimit: int | None = None
+
+
+class ProjectLimitResult(ToolResult):
+    data: ProjectLimitData | None = None
+
+
+class ProjectLimitListData(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    limits: list[ProjectLimitData]
+
+
+class ProjectLimitListResult(ToolResult):
+    data: ProjectLimitListData | None = None
