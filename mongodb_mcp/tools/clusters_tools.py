@@ -181,10 +181,10 @@ def register_clusters_tools(mcp: FastMCP) -> None:
             default=False, description="Flag that indicates whether the response body should be in the prettyprint format. Optional, defaults to false."
         ),
         providers: list[str] | None = Field(
-            default=None, description="Cloud providers whose regions to retrieve. When multiple providers are specified, the response can return only tiers and regions that support multi-cloud clusters."
+            default=None, description="Cloud providers whose regions to retrieve. When multiple providers are specified, the response can return only tiers and regions that support multi-cloud clusters. Optional, defaults to all providers."
         ),
         tier: str | None = Field(
-            default=None, description="Cluster tier for which to retrieve the regions."
+            default=None, description="Cluster tier for which to retrieve the regions. Optional, defaults to all tiers."
         ),
     ) -> CloudProviderRegionListResult:
         tlog = ToolLogger(logger, "list_cloud_provider_regions")
