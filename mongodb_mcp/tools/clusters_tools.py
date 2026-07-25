@@ -12,6 +12,8 @@ from ..logging_utils import ToolLogger
 from ..schemas.clusters import (
     AllClusterListResult,
     AllClusterListData,
+    CloudProviderRegionListData,
+    CloudProviderRegionListResult,
     ClusterData,
     ClusterListData,
     ClusterListResult,
@@ -151,3 +153,66 @@ def register_clusters_tools(mcp: FastMCP) -> None:
             return _upstream_err(AllClusterListResult, tlog, status, data, retry_after)
         except Exception as exc:
             return _handle_request_exc(AllClusterListResult, tlog, exc)
+
+    @mcp.tool(
+        name="list_cloud_provider_regions",
+        description=(
+            "Returns the cloud provider regions available for cluster creation."
+        ),
+        annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False, openWorldHint=True),
+    )
+    def list_cloud_provider_regions(
+        group_id: str = Field(
+            description="Unique 24-hexadecimal digit string that identifies the project (group). Format: ^([a-f0-9]{24})$."
+        ),
+        envelope: bool = Field(
+            default=False, description="Wraps the response in an envelope JSON object. Optional, defaults to false."
+        ),
+        include_count: bool = Field(
+            default=True, description="Flag that indicates whether the response returns the total number of items (totalCount). Optional, defaults to true."
+        ),
+        items_per_page: int = Field(
+            default=100, description="Number of items that the response returns per page. Min 1, max 500. Optional, defaults to 100."
+        ),
+        page_num: int = Field(
+            default=1, description="Number of the page that displays the current set of the total objects. Min 1. Optional, defaults to 1."
+        ),
+        pretty: bool = Field(
+            default=False, description="Flag that indicates whether the response body should be in the prettyprint format. Optional, defaults to false."
+        ),
+        providers: list[str] | None = Field(
+            default=None, description="Cloud providers whose regions to retrieve. When multiple providers are specified, the response can return only tiers and regions that support multi-cloud clusters."
+        ),
+        tier: str | None = Field(
+            default=None, description="Cluster tier for which to retrieve the regions."
+        ),
+    ) -> CloudProviderRegionListResult:
+        tlog = ToolLogger(logger, "list_cloud_provider_regions")
+
+        if not group_id or not group_id.strip():
+            return _err(CloudProviderRegionListResult, tlog, "VALIDATION_ERROR", "group_id is required", 400)
+        if items_per_page < 1 or items_per_page > 500:
+            return _err(CloudProviderRegionListResult, tlog, "VALIDATION_ERROR", "items_per_page must be 1-500", 400)
+        if page_num < 1:
+            return _err(CloudProviderRegionListResult, tlog, "VALIDATION_ERROR", "page_num must be >= 1", 400)
+
+        try:
+            data, status, retry_after = service.api_request(
+                "GET", f"/groups/{group_id}/clusters/provider/regions",
+                params={
+                    "envelope": envelope,
+                    "includeCount": include_count,
+                    "itemsPerPage": items_per_page,
+                    "pageNum": page_num,
+                    "pretty": pretty,
+                    "providers": providers,
+                    "tier": tier,
+                },
+                timeout=(CONNECT_TIMEOUT, READ_TIMEOUT),
+            )
+            if 200 <= status < 300:
+                tlog.success()
+                return CloudProviderRegionListResult(success=True, statusCode=status, data=CloudProviderRegionListData(**data))
+            return _upstream_err(CloudProviderRegionListResult, tlog, status, data, retry_after)
+        except Exception as exc:
+            return _handle_request_exc(CloudProviderRegionListResult, tlog, exc)

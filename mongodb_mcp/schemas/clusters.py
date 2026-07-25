@@ -105,3 +105,42 @@ class AllClusterListData(BaseModel):
 
 class AllClusterListResult(ToolResult):
     data: AllClusterListData | None = None
+
+
+class CloudProviderInstanceSizeRegionData(BaseModel):
+    """Per-region availability as returned inside results[].instanceSizes[].availableRegions[]."""
+
+    model_config = ConfigDict(extra="allow")
+
+    name: str | None = None
+    default: bool | None = None
+
+
+class CloudProviderInstanceSizeData(BaseModel):
+    """Per-instance-size entry as returned inside results[].instanceSizes[]."""
+
+    model_config = ConfigDict(extra="allow")
+
+    name: str | None = None
+    availableRegions: list[CloudProviderInstanceSizeRegionData] | None = None
+
+
+class CloudProviderRegionData(BaseModel):
+    """Per-provider entry as returned inside results[]."""
+
+    model_config = ConfigDict(extra="allow")
+
+    provider: str | None = None
+    instanceSizes: list[CloudProviderInstanceSizeData] | None = None
+
+
+class CloudProviderRegionListData(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    links: list | None = None
+    results: list[CloudProviderRegionData]
+    totalCount: int
+
+
+class CloudProviderRegionListResult(ToolResult):
+    data: CloudProviderRegionListData | None = None
