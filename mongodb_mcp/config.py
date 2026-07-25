@@ -3,7 +3,7 @@
 import logging
 import os
 
-SERVER_VERSION = "v1.0.0"
+SERVER_VERSION = "v1.1.0"
 BREAKING_CHANGES: list[dict] = []
 
 MONGODB_API_BASE = "https://cloud.mongodb.com/api/atlas/v2"

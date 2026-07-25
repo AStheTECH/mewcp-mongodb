@@ -4,7 +4,7 @@
     "name": "mewcp-mongodb",
     "package": "mongodb_mcp",
     "auth": "oauth",
-    "version": "v1.0.0",
+    "version": "v1.1.0",
     "api_base": "https://cloud.mongodb.com/api/atlas/v2"
   },
   "tools": {
@@ -19,131 +19,696 @@
             "description": "Creates one new project inside an organization and returns the created project's details.",
             "tier": "CREATE",
             "params": [
-              { "name": "name", "type": "string", "required": true, "description": "Human-readable label that identifies the project included in the MongoDB Cloud organization." },
-              { "name": "orgId", "type": "string", "required": true, "description": "Unique 24-hexadecimal digit string that identifies the MongoDB Cloud organization to which the project belongs." },
-              { "name": "regionUsageRestrictions", "type": "string", "required": false, "description": "Atlas for Government only. Restricts available regions for the project. One of COMMERCIAL_FEDRAMP_REGIONS_ONLY or GOV_REGIONS_ONLY. Default: COMMERCIAL_FEDRAMP_REGIONS_ONLY." },
-              { "name": "tags", "type": "array[object]", "required": false, "description": "List of key-value pairs (1-255 chars) for tagging and categorizing the project." },
-              { "name": "withDefaultAlertsSettings", "type": "boolean", "required": false, "description": "Flag that indicates whether to create the project with default alert settings. Default: true." },
-              { "name": "projectOwnerId", "type": "string", "required": false, "description": "Unique 24-hexadecimal digit string that identifies the MongoDB Cloud user to grant the Project Owner role on the new project. Overrides the default of the oldest Organization Owner." },
-              { "name": "envelope", "type": "boolean", "required": false, "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false." },
-              { "name": "pretty", "type": "boolean", "required": false, "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false." }
+              {
+                "name": "name",
+                "type": "string",
+                "required": true,
+                "description": "Human-readable label that identifies the project included in the MongoDB Cloud organization."
+              },
+              {
+                "name": "orgId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the MongoDB Cloud organization to which the project belongs."
+              },
+              {
+                "name": "regionUsageRestrictions",
+                "type": "string",
+                "required": false,
+                "description": "Atlas for Government only. Restricts available regions for the project. One of COMMERCIAL_FEDRAMP_REGIONS_ONLY or GOV_REGIONS_ONLY. Default: COMMERCIAL_FEDRAMP_REGIONS_ONLY."
+              },
+              {
+                "name": "tags",
+                "type": "array[object]",
+                "required": false,
+                "description": "List of key-value pairs (1-255 chars) for tagging and categorizing the project."
+              },
+              {
+                "name": "withDefaultAlertsSettings",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether to create the project with default alert settings. Default: true."
+              },
+              {
+                "name": "projectOwnerId",
+                "type": "string",
+                "required": false,
+                "description": "Unique 24-hexadecimal digit string that identifies the MongoDB Cloud user to grant the Project Owner role on the new project. Overrides the default of the oldest Organization Owner."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false."
+              }
             ],
             "response_fields": [
-              { "name": "clusterCount", "type": "number" },
-              { "name": "created", "type": "string" },
-              { "name": "id", "type": "string" },
-              { "name": "links", "type": "array[object]" },
-              { "name": "links[].href", "type": "string" },
-              { "name": "links[].rel", "type": "string" },
-              { "name": "name", "type": "string" },
-              { "name": "orgId", "type": "string" },
-              { "name": "regionUsageRestrictions", "type": "string" },
-              { "name": "tags", "type": "array[object]" },
-              { "name": "tags[].key", "type": "string" },
-              { "name": "tags[].value", "type": "string" },
-              { "name": "withDefaultAlertsSettings", "type": "boolean" }
+              {
+                "name": "clusterCount",
+                "type": "number"
+              },
+              {
+                "name": "created",
+                "type": "string"
+              },
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "links",
+                "type": "array[object]"
+              },
+              {
+                "name": "links[].href",
+                "type": "string"
+              },
+              {
+                "name": "links[].rel",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "orgId",
+                "type": "string"
+              },
+              {
+                "name": "regionUsageRestrictions",
+                "type": "string"
+              },
+              {
+                "name": "tags",
+                "type": "array[object]"
+              },
+              {
+                "name": "tags[].key",
+                "type": "string"
+              },
+              {
+                "name": "tags[].value",
+                "type": "string"
+              },
+              {
+                "name": "withDefaultAlertsSettings",
+                "type": "boolean"
+              }
             ],
-            "schema": { "data": "ProjectData", "result": "ProjectResult" }
+            "schema": {
+              "data": "ProjectData",
+              "result": "ProjectResult"
+            }
           },
           "delete_project": {
             "endpoint": "DELETE /groups/{groupId}",
             "description": "Removes one project, which must have no clusters, and returns no content on success.",
             "tier": "DELETE",
             "params": [
-              { "name": "groupId", "type": "string", "required": true, "description": "Unique 24-hexadecimal digit string that identifies the project to remove." },
-              { "name": "envelope", "type": "boolean", "required": false, "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false." },
-              { "name": "pretty", "type": "boolean", "required": false, "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false." }
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the project to remove."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false."
+              }
             ],
             "response_fields": [],
-            "schema": { "data": "ProjectData", "result": "ProjectResult" }
+            "schema": {
+              "data": "ProjectData",
+              "result": "ProjectResult"
+            }
           },
           "get_project": {
             "endpoint": "GET /groups/{groupId}",
             "description": "Returns one project by its unique ID, including cluster count, tags, and organization details.",
             "tier": "GET",
             "params": [
-              { "name": "groupId", "type": "string", "required": true, "description": "Unique 24-hexadecimal digit string that identifies the project." },
-              { "name": "envelope", "type": "boolean", "required": false, "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false." },
-              { "name": "pretty", "type": "boolean", "required": false, "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false." }
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the project."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false."
+              }
             ],
             "response_fields": [
-              { "name": "clusterCount", "type": "number" },
-              { "name": "created", "type": "string" },
-              { "name": "id", "type": "string" },
-              { "name": "links", "type": "array[object]" },
-              { "name": "links[].href", "type": "string" },
-              { "name": "links[].rel", "type": "string" },
-              { "name": "name", "type": "string" },
-              { "name": "orgId", "type": "string" },
-              { "name": "regionUsageRestrictions", "type": "string" },
-              { "name": "tags", "type": "array[object]" },
-              { "name": "tags[].key", "type": "string" },
-              { "name": "tags[].value", "type": "string" },
-              { "name": "withDefaultAlertsSettings", "type": "boolean" }
+              {
+                "name": "clusterCount",
+                "type": "number"
+              },
+              {
+                "name": "created",
+                "type": "string"
+              },
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "links",
+                "type": "array[object]"
+              },
+              {
+                "name": "links[].href",
+                "type": "string"
+              },
+              {
+                "name": "links[].rel",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "orgId",
+                "type": "string"
+              },
+              {
+                "name": "regionUsageRestrictions",
+                "type": "string"
+              },
+              {
+                "name": "tags",
+                "type": "array[object]"
+              },
+              {
+                "name": "tags[].key",
+                "type": "string"
+              },
+              {
+                "name": "tags[].value",
+                "type": "string"
+              },
+              {
+                "name": "withDefaultAlertsSettings",
+                "type": "boolean"
+              }
             ],
-            "schema": { "data": "ProjectData", "result": "ProjectResult" }
+            "schema": {
+              "data": "ProjectData",
+              "result": "ProjectResult"
+            }
           },
           "list_projects": {
             "endpoint": "GET /groups",
             "description": "Returns all projects to which the requesting service account has access.",
             "tier": "GET",
             "params": [
-              { "name": "envelope", "type": "boolean", "required": false, "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false." },
-              { "name": "includeCount", "type": "boolean", "required": false, "description": "Flag that indicates whether the response returns the total number of items (totalCount). Default: true." },
-              { "name": "itemsPerPage", "type": "integer", "required": false, "description": "Number of items that the response returns per page. Minimum 1, maximum 500. Default: 100." },
-              { "name": "pageNum", "type": "integer", "required": false, "description": "Number of the page that displays the current set of the total objects that the response returns. Minimum 1. Default: 1." },
-              { "name": "pretty", "type": "boolean", "required": false, "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false." }
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false."
+              },
+              {
+                "name": "includeCount",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response returns the total number of items (totalCount). Default: true."
+              },
+              {
+                "name": "itemsPerPage",
+                "type": "integer",
+                "required": false,
+                "description": "Number of items that the response returns per page. Minimum 1, maximum 500. Default: 100."
+              },
+              {
+                "name": "pageNum",
+                "type": "integer",
+                "required": false,
+                "description": "Number of the page that displays the current set of the total objects that the response returns. Minimum 1. Default: 1."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false."
+              }
             ],
             "response_fields": [
-              { "name": "links", "type": "array[object]" },
-              { "name": "links[].href", "type": "string" },
-              { "name": "links[].rel", "type": "string" },
-              { "name": "results", "type": "array[object]" },
-              { "name": "results[].clusterCount", "type": "number" },
-              { "name": "results[].created", "type": "string" },
-              { "name": "results[].id", "type": "string" },
-              { "name": "results[].links", "type": "array[object]" },
-              { "name": "results[].links[].href", "type": "string" },
-              { "name": "results[].links[].rel", "type": "string" },
-              { "name": "results[].name", "type": "string" },
-              { "name": "results[].orgId", "type": "string" },
-              { "name": "results[].regionUsageRestrictions", "type": "string" },
-              { "name": "results[].tags", "type": "array[object]" },
-              { "name": "results[].tags[].key", "type": "string" },
-              { "name": "results[].tags[].value", "type": "string" },
-              { "name": "results[].withDefaultAlertsSettings", "type": "boolean" },
-              { "name": "totalCount", "type": "number" }
+              {
+                "name": "links",
+                "type": "array[object]"
+              },
+              {
+                "name": "links[].href",
+                "type": "string"
+              },
+              {
+                "name": "links[].rel",
+                "type": "string"
+              },
+              {
+                "name": "results",
+                "type": "array[object]"
+              },
+              {
+                "name": "results[].clusterCount",
+                "type": "number"
+              },
+              {
+                "name": "results[].created",
+                "type": "string"
+              },
+              {
+                "name": "results[].id",
+                "type": "string"
+              },
+              {
+                "name": "results[].links",
+                "type": "array[object]"
+              },
+              {
+                "name": "results[].links[].href",
+                "type": "string"
+              },
+              {
+                "name": "results[].links[].rel",
+                "type": "string"
+              },
+              {
+                "name": "results[].name",
+                "type": "string"
+              },
+              {
+                "name": "results[].orgId",
+                "type": "string"
+              },
+              {
+                "name": "results[].regionUsageRestrictions",
+                "type": "string"
+              },
+              {
+                "name": "results[].tags",
+                "type": "array[object]"
+              },
+              {
+                "name": "results[].tags[].key",
+                "type": "string"
+              },
+              {
+                "name": "results[].tags[].value",
+                "type": "string"
+              },
+              {
+                "name": "results[].withDefaultAlertsSettings",
+                "type": "boolean"
+              },
+              {
+                "name": "totalCount",
+                "type": "number"
+              }
             ],
-            "schema": { "data": "ProjectListData", "result": "ProjectListResult" }
+            "schema": {
+              "data": "ProjectListData",
+              "result": "ProjectListResult"
+            }
           },
           "update_project": {
             "endpoint": "PATCH /groups/{groupId}",
             "description": "Updates the name, tags, or default alert settings of one project and returns the updated project.",
             "tier": "UPDATE",
             "params": [
-              { "name": "groupId", "type": "string", "required": true, "description": "Unique 24-hexadecimal digit string that identifies the project to update." },
-              { "name": "name", "type": "string", "required": false, "description": "Human-readable label that identifies the project included in the MongoDB Cloud organization." },
-              { "name": "tags", "type": "array[object]", "required": false, "description": "List of key-value pairs (1-255 chars) for tagging and categorizing the project." },
-              { "name": "withDefaultAlertsSettings", "type": "boolean", "required": false, "description": "Flag that indicates whether the project can automatically create default alerts." },
-              { "name": "envelope", "type": "boolean", "required": false, "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false." },
-              { "name": "pretty", "type": "boolean", "required": false, "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false." }
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the project to update."
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "required": false,
+                "description": "Human-readable label that identifies the project included in the MongoDB Cloud organization."
+              },
+              {
+                "name": "tags",
+                "type": "array[object]",
+                "required": false,
+                "description": "List of key-value pairs (1-255 chars) for tagging and categorizing the project."
+              },
+              {
+                "name": "withDefaultAlertsSettings",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the project can automatically create default alerts."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false."
+              }
             ],
             "response_fields": [
-              { "name": "clusterCount", "type": "number" },
-              { "name": "created", "type": "string" },
-              { "name": "id", "type": "string" },
-              { "name": "links", "type": "array[object]" },
-              { "name": "links[].href", "type": "string" },
-              { "name": "links[].rel", "type": "string" },
-              { "name": "name", "type": "string" },
-              { "name": "orgId", "type": "string" },
-              { "name": "regionUsageRestrictions", "type": "string" },
-              { "name": "tags", "type": "array[object]" },
-              { "name": "tags[].key", "type": "string" },
-              { "name": "tags[].value", "type": "string" },
-              { "name": "withDefaultAlertsSettings", "type": "boolean" }
+              {
+                "name": "clusterCount",
+                "type": "number"
+              },
+              {
+                "name": "created",
+                "type": "string"
+              },
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "links",
+                "type": "array[object]"
+              },
+              {
+                "name": "links[].href",
+                "type": "string"
+              },
+              {
+                "name": "links[].rel",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "orgId",
+                "type": "string"
+              },
+              {
+                "name": "regionUsageRestrictions",
+                "type": "string"
+              },
+              {
+                "name": "tags",
+                "type": "array[object]"
+              },
+              {
+                "name": "tags[].key",
+                "type": "string"
+              },
+              {
+                "name": "tags[].value",
+                "type": "string"
+              },
+              {
+                "name": "withDefaultAlertsSettings",
+                "type": "boolean"
+              }
             ],
-            "schema": { "data": "ProjectData", "result": "ProjectResult" }
+            "schema": {
+              "data": "ProjectData",
+              "result": "ProjectResult"
+            }
+          },
+          "get_project_by_name": {
+            "endpoint": "GET /groups/byName/{groupName}",
+            "description": "Returns one project matched by its name.",
+            "tier": "GET",
+            "params": [
+              {
+                "name": "groupName",
+                "type": "string",
+                "required": true,
+                "description": "Human-readable label that identifies this project. Minimum length is 1, maximum length is 64."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "clusterCount",
+                "type": "number"
+              },
+              {
+                "name": "created",
+                "type": "string"
+              },
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "links",
+                "type": "array[object]"
+              },
+              {
+                "name": "links[].href",
+                "type": "string"
+              },
+              {
+                "name": "links[].rel",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "orgId",
+                "type": "string"
+              },
+              {
+                "name": "regionUsageRestrictions",
+                "type": "string"
+              },
+              {
+                "name": "tags",
+                "type": "array[object]"
+              },
+              {
+                "name": "tags[].key",
+                "type": "string"
+              },
+              {
+                "name": "tags[].value",
+                "type": "string"
+              },
+              {
+                "name": "withDefaultAlertsSettings",
+                "type": "boolean"
+              }
+            ],
+            "schema": {
+              "data": "ProjectData",
+              "result": "ProjectResult"
+            }
+          },
+          "list_project_ip_addresses": {
+            "endpoint": "GET /groups/{groupId}/ipAddresses",
+            "description": "Returns the outbound IP addresses Atlas uses for cluster infrastructure and peered/private networks in this project.",
+            "tier": "GET",
+            "params": [
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the project."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "groupId",
+                "type": "string"
+              },
+              {
+                "name": "services",
+                "type": "object"
+              },
+              {
+                "name": "services.clusters",
+                "type": "array[object]"
+              },
+              {
+                "name": "services.clusters[].clusterName",
+                "type": "string"
+              },
+              {
+                "name": "services.clusters[].futureInbound",
+                "type": "array[string]"
+              },
+              {
+                "name": "services.clusters[].futureOutbound",
+                "type": "array[string]"
+              },
+              {
+                "name": "services.clusters[].inbound",
+                "type": "array[string]"
+              },
+              {
+                "name": "services.clusters[].outbound",
+                "type": "array[string]"
+              }
+            ],
+            "schema": {
+              "data": "ProjectIpAddressListData",
+              "result": "ProjectIpAddressListResult"
+            }
+          },
+          "list_project_limits": {
+            "endpoint": "GET /groups/{groupId}/limits",
+            "description": "Returns all configurable resource limits and their current usage for one project.",
+            "tier": "GET",
+            "params": [
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the project."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "[].currentUsage",
+                "type": "number"
+              },
+              {
+                "name": "[].defaultLimit",
+                "type": "number"
+              },
+              {
+                "name": "[].maximumLimit",
+                "type": "number"
+              },
+              {
+                "name": "[].name",
+                "type": "string"
+              },
+              {
+                "name": "[].value",
+                "type": "number"
+              }
+            ],
+            "schema": {
+              "data": "ProjectLimitListData",
+              "result": "ProjectLimitListResult"
+            }
+          },
+          "get_project_limit": {
+            "endpoint": "GET /groups/{groupId}/limits/{limitName}",
+            "description": "Returns one resource limit by name for one project.",
+            "tier": "GET",
+            "params": [
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the project."
+              },
+              {
+                "name": "limitName",
+                "type": "string",
+                "required": true,
+                "description": "Human-readable label that identifies this project limit. One of: atlas.project.security.databaseAccess.users, atlas.project.deployment.clusters, atlas.project.deployment.serverlessMTMs, atlas.project.security.databaseAccess.customRoles, atlas.project.security.networkAccess.entries, atlas.project.security.networkAccess.crossRegionEntries, atlas.project.deployment.nodesPerPrivateLinkRegion, dataFederation.bytesProcessed.query, dataFederation.bytesProcessed.daily, dataFederation.bytesProcessed.weekly, dataFederation.bytesProcessed.monthly, atlas.project.deployment.privateServiceConnectionsPerRegionGroup, or atlas.project.deployment.privateServiceConnectionsSubnetMask."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response is wrapped in an envelope JSON object. Default: false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default: false."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "currentUsage",
+                "type": "number"
+              },
+              {
+                "name": "defaultLimit",
+                "type": "number"
+              },
+              {
+                "name": "maximumLimit",
+                "type": "number"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "value",
+                "type": "number"
+              }
+            ],
+            "schema": {
+              "data": "ProjectLimitData",
+              "result": "ProjectLimitResult"
+            }
           }
         }
       },
@@ -157,147 +722,1342 @@
             "description": "Returns the full configuration and status details for one cluster identified by project (groupId) and cluster name.",
             "tier": "GET",
             "params": [
-              { "name": "groupId", "type": "string", "required": true, "description": "Unique 24-hexadecimal digit string that identifies the project (group). Format: ^([a-f0-9]{24})$." },
-              { "name": "clusterName", "type": "string", "required": true, "description": "Human-readable label that identifies this cluster. Format: ^[a-zA-Z0-9][a-zA-Z0-9-]*$." },
-              { "name": "envelope", "type": "boolean", "required": false, "description": "Wraps the response in an envelope JSON object. Default false." },
-              { "name": "pretty", "type": "boolean", "required": false, "description": "Flag that indicates whether the response body should be in the prettyprint format. Default false." },
-              { "name": "Use-Effective-Instance-Fields", "type": "boolean", "required": false, "description": "Header. Controls whether hardware specification fields return original client-specified values (with separate effective fields) or current operational values directly. Default false." },
-              { "name": "Use-Effective-Fields-Replication-Specs", "type": "boolean", "required": false, "description": "Header. Controls whether replicationSpecs returns the client-specified view (with separate effectiveReplicationSpecs) or the actual cluster state directly. Default false." }
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the project (group). Format: ^([a-f0-9]{24})$."
+              },
+              {
+                "name": "clusterName",
+                "type": "string",
+                "required": true,
+                "description": "Human-readable label that identifies this cluster. Format: ^[a-zA-Z0-9][a-zA-Z0-9-]*$."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Wraps the response in an envelope JSON object. Default false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default false."
+              },
+              {
+                "name": "Use-Effective-Instance-Fields",
+                "type": "boolean",
+                "required": false,
+                "description": "Header. Controls whether hardware specification fields return original client-specified values (with separate effective fields) or current operational values directly. Default false."
+              },
+              {
+                "name": "Use-Effective-Fields-Replication-Specs",
+                "type": "boolean",
+                "required": false,
+                "description": "Header. Controls whether replicationSpecs returns the client-specified view (with separate effectiveReplicationSpecs) or the actual cluster state directly. Default false."
+              }
             ],
             "response_fields": [
-              { "name": "acceptDataRisksAndForceReplicaSetReconfig", "type": "string" },
-              { "name": "adaptiveCapacity", "type": "string" },
-              { "name": "advancedConfiguration", "type": "object" },
-              { "name": "backupEnabled", "type": "boolean" },
-              { "name": "biConnector", "type": "object" },
-              { "name": "clusterType", "type": "string" },
-              { "name": "configServerManagementMode", "type": "string" },
-              { "name": "configServerType", "type": "string" },
-              { "name": "connectionStrings", "type": "object" },
-              { "name": "createDate", "type": "string" },
-              { "name": "diskWarmingMode", "type": "string" },
-              { "name": "effectiveReplicationSpecs", "type": "array" },
-              { "name": "encryptionAtRestProvider", "type": "string" },
-              { "name": "featureCompatibilityVersion", "type": "string" },
-              { "name": "featureCompatibilityVersionExpirationDate", "type": "string" },
-              { "name": "globalClusterSelfManagedSharding", "type": "boolean" },
-              { "name": "groupId", "type": "string" },
-              { "name": "id", "type": "string" },
-              { "name": "internalClusterRole", "type": "string" },
-              { "name": "labels", "type": "array" },
-              { "name": "links", "type": "array" },
-              { "name": "mongoDBEmployeeAccessGrant", "type": "object" },
-              { "name": "mongoDBMajorVersion", "type": "string" },
-              { "name": "mongoDBVersion", "type": "string" },
-              { "name": "name", "type": "string" },
-              { "name": "paused", "type": "boolean" },
-              { "name": "pitEnabled", "type": "boolean" },
-              { "name": "redactClientLogData", "type": "boolean" },
-              { "name": "replicaSetScalingStrategy", "type": "string" },
-              { "name": "replicationSpecs", "type": "array" },
-              { "name": "retainBackups", "type": "boolean" },
-              { "name": "rootCertType", "type": "string" },
-              { "name": "stateName", "type": "string" },
-              { "name": "tags", "type": "array" },
-              { "name": "terminationProtectionEnabled", "type": "boolean" },
-              { "name": "useAwsTimeBasedSnapshotCopyForFastInitialSync", "type": "boolean" },
-              { "name": "versionReleaseSystem", "type": "string" }
+              {
+                "name": "acceptDataRisksAndForceReplicaSetReconfig",
+                "type": "string"
+              },
+              {
+                "name": "adaptiveCapacity",
+                "type": "string"
+              },
+              {
+                "name": "advancedConfiguration",
+                "type": "object"
+              },
+              {
+                "name": "backupEnabled",
+                "type": "boolean"
+              },
+              {
+                "name": "biConnector",
+                "type": "object"
+              },
+              {
+                "name": "clusterType",
+                "type": "string"
+              },
+              {
+                "name": "configServerManagementMode",
+                "type": "string"
+              },
+              {
+                "name": "configServerType",
+                "type": "string"
+              },
+              {
+                "name": "connectionStrings",
+                "type": "object"
+              },
+              {
+                "name": "createDate",
+                "type": "string"
+              },
+              {
+                "name": "diskWarmingMode",
+                "type": "string"
+              },
+              {
+                "name": "effectiveReplicationSpecs",
+                "type": "array"
+              },
+              {
+                "name": "encryptionAtRestProvider",
+                "type": "string"
+              },
+              {
+                "name": "featureCompatibilityVersion",
+                "type": "string"
+              },
+              {
+                "name": "featureCompatibilityVersionExpirationDate",
+                "type": "string"
+              },
+              {
+                "name": "globalClusterSelfManagedSharding",
+                "type": "boolean"
+              },
+              {
+                "name": "groupId",
+                "type": "string"
+              },
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "internalClusterRole",
+                "type": "string"
+              },
+              {
+                "name": "labels",
+                "type": "array"
+              },
+              {
+                "name": "links",
+                "type": "array"
+              },
+              {
+                "name": "mongoDBEmployeeAccessGrant",
+                "type": "object"
+              },
+              {
+                "name": "mongoDBMajorVersion",
+                "type": "string"
+              },
+              {
+                "name": "mongoDBVersion",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "paused",
+                "type": "boolean"
+              },
+              {
+                "name": "pitEnabled",
+                "type": "boolean"
+              },
+              {
+                "name": "redactClientLogData",
+                "type": "boolean"
+              },
+              {
+                "name": "replicaSetScalingStrategy",
+                "type": "string"
+              },
+              {
+                "name": "replicationSpecs",
+                "type": "array"
+              },
+              {
+                "name": "retainBackups",
+                "type": "boolean"
+              },
+              {
+                "name": "rootCertType",
+                "type": "string"
+              },
+              {
+                "name": "stateName",
+                "type": "string"
+              },
+              {
+                "name": "tags",
+                "type": "array"
+              },
+              {
+                "name": "terminationProtectionEnabled",
+                "type": "boolean"
+              },
+              {
+                "name": "useAwsTimeBasedSnapshotCopyForFastInitialSync",
+                "type": "boolean"
+              },
+              {
+                "name": "versionReleaseSystem",
+                "type": "string"
+              }
             ],
-            "schema": { "data": "ClusterData", "result": "ClusterResult" }
+            "schema": {
+              "data": "ClusterData",
+              "result": "ClusterResult"
+            }
           },
           "list_clusters": {
             "endpoint": "GET /groups/{groupId}/clusters",
             "description": "Returns all clusters in one project, including each cluster's configuration and status.",
             "tier": "GET",
             "params": [
-              { "name": "groupId", "type": "string", "required": true, "description": "Unique 24-hexadecimal digit string that identifies the project (group). Format: ^([a-f0-9]{24})$." },
-              { "name": "envelope", "type": "boolean", "required": false, "description": "Wraps the response in an envelope JSON object. Default false." },
-              { "name": "includeCount", "type": "boolean", "required": false, "description": "Flag that indicates whether the response returns the total number of items (totalCount). Default true." },
-              { "name": "itemsPerPage", "type": "integer", "required": false, "description": "Number of items that the response returns per page. Min 1, max 500. Default 100." },
-              { "name": "pageNum", "type": "integer", "required": false, "description": "Number of the page that displays the current set of the total objects. Min 1. Default 1." },
-              { "name": "pretty", "type": "boolean", "required": false, "description": "Flag that indicates whether the response body should be in the prettyprint format. Default false." },
-              { "name": "includeDeletedWithRetainedBackups", "type": "boolean", "required": false, "description": "Flag that indicates whether to return clusters with retained backups. Default false." },
-              { "name": "Use-Effective-Instance-Fields", "type": "boolean", "required": false, "description": "Header. Controls whether hardware specification fields return original client-specified values (with separate effective fields) or current operational values directly. Default false." }
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the project (group). Format: ^([a-f0-9]{24})$."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Wraps the response in an envelope JSON object. Default false."
+              },
+              {
+                "name": "includeCount",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response returns the total number of items (totalCount). Default true."
+              },
+              {
+                "name": "itemsPerPage",
+                "type": "integer",
+                "required": false,
+                "description": "Number of items that the response returns per page. Min 1, max 500. Default 100."
+              },
+              {
+                "name": "pageNum",
+                "type": "integer",
+                "required": false,
+                "description": "Number of the page that displays the current set of the total objects. Min 1. Default 1."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default false."
+              },
+              {
+                "name": "includeDeletedWithRetainedBackups",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether to return clusters with retained backups. Default false."
+              },
+              {
+                "name": "Use-Effective-Instance-Fields",
+                "type": "boolean",
+                "required": false,
+                "description": "Header. Controls whether hardware specification fields return original client-specified values (with separate effective fields) or current operational values directly. Default false."
+              }
             ],
             "response_fields": [
-              { "name": "links", "type": "array" },
-              { "name": "results", "type": "array" },
-              { "name": "totalCount", "type": "integer" },
-              { "name": "results[].acceptDataRisksAndForceReplicaSetReconfig", "type": "string" },
-              { "name": "results[].adaptiveCapacity", "type": "string" },
-              { "name": "results[].advancedConfiguration", "type": "object" },
-              { "name": "results[].backupEnabled", "type": "boolean" },
-              { "name": "results[].biConnector", "type": "object" },
-              { "name": "results[].clusterType", "type": "string" },
-              { "name": "results[].configServerManagementMode", "type": "string" },
-              { "name": "results[].configServerType", "type": "string" },
-              { "name": "results[].connectionStrings", "type": "object" },
-              { "name": "results[].createDate", "type": "string" },
-              { "name": "results[].diskWarmingMode", "type": "string" },
-              { "name": "results[].effectiveReplicationSpecs", "type": "array" },
-              { "name": "results[].encryptionAtRestProvider", "type": "string" },
-              { "name": "results[].featureCompatibilityVersion", "type": "string" },
-              { "name": "results[].featureCompatibilityVersionExpirationDate", "type": "string" },
-              { "name": "results[].globalClusterSelfManagedSharding", "type": "boolean" },
-              { "name": "results[].groupId", "type": "string" },
-              { "name": "results[].id", "type": "string" },
-              { "name": "results[].internalClusterRole", "type": "string" },
-              { "name": "results[].labels", "type": "array" },
-              { "name": "results[].links", "type": "array" },
-              { "name": "results[].mongoDBEmployeeAccessGrant", "type": "object" },
-              { "name": "results[].mongoDBMajorVersion", "type": "string" },
-              { "name": "results[].mongoDBVersion", "type": "string" },
-              { "name": "results[].name", "type": "string" },
-              { "name": "results[].paused", "type": "boolean" },
-              { "name": "results[].pitEnabled", "type": "boolean" },
-              { "name": "results[].redactClientLogData", "type": "boolean" },
-              { "name": "results[].replicaSetScalingStrategy", "type": "string" },
-              { "name": "results[].replicationSpecs", "type": "array" },
-              { "name": "results[].retainBackups", "type": "boolean" },
-              { "name": "results[].rootCertType", "type": "string" },
-              { "name": "results[].stateName", "type": "string" },
-              { "name": "results[].tags", "type": "array" },
-              { "name": "results[].terminationProtectionEnabled", "type": "boolean" },
-              { "name": "results[].useAwsTimeBasedSnapshotCopyForFastInitialSync", "type": "boolean" },
-              { "name": "results[].versionReleaseSystem", "type": "string" }
+              {
+                "name": "links",
+                "type": "array"
+              },
+              {
+                "name": "results",
+                "type": "array"
+              },
+              {
+                "name": "totalCount",
+                "type": "integer"
+              },
+              {
+                "name": "results[].acceptDataRisksAndForceReplicaSetReconfig",
+                "type": "string"
+              },
+              {
+                "name": "results[].adaptiveCapacity",
+                "type": "string"
+              },
+              {
+                "name": "results[].advancedConfiguration",
+                "type": "object"
+              },
+              {
+                "name": "results[].backupEnabled",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].biConnector",
+                "type": "object"
+              },
+              {
+                "name": "results[].clusterType",
+                "type": "string"
+              },
+              {
+                "name": "results[].configServerManagementMode",
+                "type": "string"
+              },
+              {
+                "name": "results[].configServerType",
+                "type": "string"
+              },
+              {
+                "name": "results[].connectionStrings",
+                "type": "object"
+              },
+              {
+                "name": "results[].createDate",
+                "type": "string"
+              },
+              {
+                "name": "results[].diskWarmingMode",
+                "type": "string"
+              },
+              {
+                "name": "results[].effectiveReplicationSpecs",
+                "type": "array"
+              },
+              {
+                "name": "results[].encryptionAtRestProvider",
+                "type": "string"
+              },
+              {
+                "name": "results[].featureCompatibilityVersion",
+                "type": "string"
+              },
+              {
+                "name": "results[].featureCompatibilityVersionExpirationDate",
+                "type": "string"
+              },
+              {
+                "name": "results[].globalClusterSelfManagedSharding",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].groupId",
+                "type": "string"
+              },
+              {
+                "name": "results[].id",
+                "type": "string"
+              },
+              {
+                "name": "results[].internalClusterRole",
+                "type": "string"
+              },
+              {
+                "name": "results[].labels",
+                "type": "array"
+              },
+              {
+                "name": "results[].links",
+                "type": "array"
+              },
+              {
+                "name": "results[].mongoDBEmployeeAccessGrant",
+                "type": "object"
+              },
+              {
+                "name": "results[].mongoDBMajorVersion",
+                "type": "string"
+              },
+              {
+                "name": "results[].mongoDBVersion",
+                "type": "string"
+              },
+              {
+                "name": "results[].name",
+                "type": "string"
+              },
+              {
+                "name": "results[].paused",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].pitEnabled",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].redactClientLogData",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].replicaSetScalingStrategy",
+                "type": "string"
+              },
+              {
+                "name": "results[].replicationSpecs",
+                "type": "array"
+              },
+              {
+                "name": "results[].retainBackups",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].rootCertType",
+                "type": "string"
+              },
+              {
+                "name": "results[].stateName",
+                "type": "string"
+              },
+              {
+                "name": "results[].tags",
+                "type": "array"
+              },
+              {
+                "name": "results[].terminationProtectionEnabled",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].useAwsTimeBasedSnapshotCopyForFastInitialSync",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].versionReleaseSystem",
+                "type": "string"
+              }
             ],
-            "schema": { "data": "ClusterListData", "result": "ClusterListResult" }
+            "schema": {
+              "data": "ClusterListData",
+              "result": "ClusterListResult"
+            }
           },
           "list_all_clusters": {
             "endpoint": "GET /clusters",
             "description": "Returns all clusters across every project the requester can access, grouped by project.",
             "tier": "GET",
             "params": [
-              { "name": "envelope", "type": "boolean", "required": false, "description": "Wraps the response in an envelope JSON object. Default false." },
-              { "name": "includeCount", "type": "boolean", "required": false, "description": "Flag that indicates whether the response returns the total number of items (totalCount). Default true." },
-              { "name": "itemsPerPage", "type": "integer", "required": false, "description": "Number of items that the response returns per page. Min 1, max 500. Default 100." },
-              { "name": "pageNum", "type": "integer", "required": false, "description": "Number of the page that displays the current set of the total objects. Min 1. Default 1." },
-              { "name": "pretty", "type": "boolean", "required": false, "description": "Flag that indicates whether the response body should be in the prettyprint format. Default false." }
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Wraps the response in an envelope JSON object. Default false."
+              },
+              {
+                "name": "includeCount",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response returns the total number of items (totalCount). Default true."
+              },
+              {
+                "name": "itemsPerPage",
+                "type": "integer",
+                "required": false,
+                "description": "Number of items that the response returns per page. Min 1, max 500. Default 100."
+              },
+              {
+                "name": "pageNum",
+                "type": "integer",
+                "required": false,
+                "description": "Number of the page that displays the current set of the total objects. Min 1. Default 1."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default false."
+              }
             ],
             "response_fields": [
-              { "name": "links", "type": "array" },
-              { "name": "results", "type": "array" },
-              { "name": "totalCount", "type": "integer" },
-              { "name": "results[].clusters", "type": "array" },
-              { "name": "results[].groupId", "type": "string" },
-              { "name": "results[].groupName", "type": "string" },
-              { "name": "results[].orgId", "type": "string" },
-              { "name": "results[].orgName", "type": "string" },
-              { "name": "results[].planType", "type": "string" },
-              { "name": "results[].tags", "type": "array" },
-              { "name": "results[].clusters[].alertCount", "type": "integer" },
-              { "name": "results[].clusters[].authEnabled", "type": "boolean" },
-              { "name": "results[].clusters[].availability", "type": "string" },
-              { "name": "results[].clusters[].backupEnabled", "type": "boolean" },
-              { "name": "results[].clusters[].clusterId", "type": "string" },
-              { "name": "results[].clusters[].dataSizeBytes", "type": "integer" },
-              { "name": "results[].clusters[].name", "type": "string" },
-              { "name": "results[].clusters[].nodeCount", "type": "integer" },
-              { "name": "results[].clusters[].sslEnabled", "type": "boolean" },
-              { "name": "results[].clusters[].type", "type": "string" },
-              { "name": "results[].clusters[].versions", "type": "array" }
+              {
+                "name": "links",
+                "type": "array"
+              },
+              {
+                "name": "results",
+                "type": "array"
+              },
+              {
+                "name": "totalCount",
+                "type": "integer"
+              },
+              {
+                "name": "results[].clusters",
+                "type": "array"
+              },
+              {
+                "name": "results[].groupId",
+                "type": "string"
+              },
+              {
+                "name": "results[].groupName",
+                "type": "string"
+              },
+              {
+                "name": "results[].orgId",
+                "type": "string"
+              },
+              {
+                "name": "results[].orgName",
+                "type": "string"
+              },
+              {
+                "name": "results[].planType",
+                "type": "string"
+              },
+              {
+                "name": "results[].tags",
+                "type": "array"
+              },
+              {
+                "name": "results[].clusters[].alertCount",
+                "type": "integer"
+              },
+              {
+                "name": "results[].clusters[].authEnabled",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].clusters[].availability",
+                "type": "string"
+              },
+              {
+                "name": "results[].clusters[].backupEnabled",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].clusters[].clusterId",
+                "type": "string"
+              },
+              {
+                "name": "results[].clusters[].dataSizeBytes",
+                "type": "integer"
+              },
+              {
+                "name": "results[].clusters[].name",
+                "type": "string"
+              },
+              {
+                "name": "results[].clusters[].nodeCount",
+                "type": "integer"
+              },
+              {
+                "name": "results[].clusters[].sslEnabled",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].clusters[].type",
+                "type": "string"
+              },
+              {
+                "name": "results[].clusters[].versions",
+                "type": "array"
+              }
             ],
-            "schema": { "data": "AllClusterListData", "result": "AllClusterListResult" }
+            "schema": {
+              "data": "AllClusterListData",
+              "result": "AllClusterListResult"
+            }
+          },
+          "list_cloud_provider_regions": {
+            "endpoint": "GET /groups/{groupId}/clusters/provider/regions",
+            "description": "Returns the cloud provider regions available for cluster creation.",
+            "tier": "GET",
+            "params": [
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the project (group). Format: ^([a-f0-9]{24})$."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Wraps the response in an envelope JSON object. Default false."
+              },
+              {
+                "name": "includeCount",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response returns the total number of items (totalCount) in the response. Default true."
+              },
+              {
+                "name": "itemsPerPage",
+                "type": "integer",
+                "required": false,
+                "description": "Number of items that the response returns per page. Min 1, max 500. Default 100."
+              },
+              {
+                "name": "pageNum",
+                "type": "integer",
+                "required": false,
+                "description": "Number of the page that displays the current set of the total objects that the response returns. Min 1. Default 1."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default false."
+              },
+              {
+                "name": "providers",
+                "type": "array[string]",
+                "required": false,
+                "description": "Cloud providers whose regions to retrieve. When multiple providers are specified, the response can return only tiers and regions that support multi-cloud clusters."
+              },
+              {
+                "name": "tier",
+                "type": "string",
+                "required": false,
+                "description": "Cluster tier for which to retrieve the regions."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "links",
+                "type": "array"
+              },
+              {
+                "name": "results",
+                "type": "array"
+              },
+              {
+                "name": "totalCount",
+                "type": "integer"
+              },
+              {
+                "name": "results[].provider",
+                "type": "string"
+              },
+              {
+                "name": "results[].instanceSizes",
+                "type": "array"
+              },
+              {
+                "name": "results[].instanceSizes[].name",
+                "type": "string"
+              },
+              {
+                "name": "results[].instanceSizes[].availableRegions",
+                "type": "array"
+              },
+              {
+                "name": "results[].instanceSizes[].availableRegions[].name",
+                "type": "string"
+              },
+              {
+                "name": "results[].instanceSizes[].availableRegions[].default",
+                "type": "boolean"
+              }
+            ],
+            "schema": {
+              "data": "CloudProviderRegionListData",
+              "result": "CloudProviderRegionListResult"
+            }
+          }
+        }
+      },
+      "organizations": {
+        "file": "organizations_tools.py",
+        "doc_source": "organizations/",
+        "register_fn": "register_organizations_tools",
+        "tools": {
+          "list_organizations": {
+            "endpoint": "GET /orgs",
+            "description": "Returns all organizations to which the requesting service account has access.",
+            "tier": "GET",
+            "params": [
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether Application wraps the response in an envelope JSON object. Some API clients cannot access the HTTP response headers or status code. To remediate this, set envelope=true in the query. Endpoints that return a list of results use the results object as an envelope. Application adds the status parameter to the response body. Default value is false."
+              },
+              {
+                "name": "includeCount",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response returns the total number of items (totalCount) in the response. Default value is true."
+              },
+              {
+                "name": "itemsPerPage",
+                "type": "integer",
+                "required": false,
+                "description": "Number of items that the response returns per page. Minimum value is 1, maximum value is 500. Default value is 100."
+              },
+              {
+                "name": "pageNum",
+                "type": "integer",
+                "required": false,
+                "description": "Number of the page that displays the current set of the total objects that the response returns. Minimum value is 1. Default value is 1."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default value is false."
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "required": false,
+                "description": "Human-readable label of the organization to use to filter the returned list. Performs a case-insensitive search for an organization that starts with the specified name."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "links",
+                "type": "array"
+              },
+              {
+                "name": "links[].href",
+                "type": "string"
+              },
+              {
+                "name": "links[].rel",
+                "type": "string"
+              },
+              {
+                "name": "results",
+                "type": "array"
+              },
+              {
+                "name": "results[].id",
+                "type": "string"
+              },
+              {
+                "name": "results[].isDeleted",
+                "type": "boolean"
+              },
+              {
+                "name": "results[].links",
+                "type": "array"
+              },
+              {
+                "name": "results[].links[].href",
+                "type": "string"
+              },
+              {
+                "name": "results[].links[].rel",
+                "type": "string"
+              },
+              {
+                "name": "results[].name",
+                "type": "string"
+              },
+              {
+                "name": "results[].skipDefaultAlertsSettings",
+                "type": "boolean"
+              },
+              {
+                "name": "totalCount",
+                "type": "integer"
+              }
+            ],
+            "schema": {
+              "data": "OrganizationListData",
+              "result": "OrganizationListResult"
+            }
+          },
+          "get_organization": {
+            "endpoint": "GET /orgs/{orgId}",
+            "description": "Returns one organization by its unique ID.",
+            "tier": "GET",
+            "params": [
+              {
+                "name": "orgId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the organization that contains your projects. Use the /orgs endpoint to retrieve all organizations to which the authenticated user has access. Format should match the following pattern: ^([a-f0-9]{24})$."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether Application wraps the response in an envelope JSON object. Some API clients cannot access the HTTP response headers or status code. To remediate this, set envelope=true in the query. Endpoints that return a list of results use the results object as an envelope. Application adds the status parameter to the response body. Default value is false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default value is false."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "isDeleted",
+                "type": "boolean"
+              },
+              {
+                "name": "links",
+                "type": "array"
+              },
+              {
+                "name": "links[].href",
+                "type": "string"
+              },
+              {
+                "name": "links[].rel",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "skipDefaultAlertsSettings",
+                "type": "boolean"
+              }
+            ],
+            "schema": {
+              "data": "OrganizationData",
+              "result": "OrganizationResult"
+            }
+          },
+          "list_organization_projects": {
+            "endpoint": "GET /orgs/{orgId}/groups",
+            "description": "Returns all projects inside one organization.",
+            "tier": "GET",
+            "params": [
+              {
+                "name": "orgId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies the organization that contains your projects. Use the /orgs endpoint to retrieve all organizations to which the authenticated user has access. Format should match the following pattern: ^([a-f0-9]{24})$."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether Application wraps the response in an envelope JSON object. Some API clients cannot access the HTTP response headers or status code. To remediate this, set envelope=true in the query. Endpoints that return a list of results use the results object as an envelope. Application adds the status parameter to the response body. Default value is false."
+              },
+              {
+                "name": "includeCount",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response returns the total number of items (totalCount) in the response. Default value is true."
+              },
+              {
+                "name": "itemsPerPage",
+                "type": "integer",
+                "required": false,
+                "description": "Number of items that the response returns per page. Minimum value is 1, maximum value is 500. Default value is 100."
+              },
+              {
+                "name": "pageNum",
+                "type": "integer",
+                "required": false,
+                "description": "Number of the page that displays the current set of the total objects that the response returns. Minimum value is 1. Default value is 1."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default value is false."
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "required": false,
+                "description": "Human-readable label of the project to use to filter the returned list. Performs a case-insensitive search for a project within the organization which is prefixed by the specified name."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "links",
+                "type": "array"
+              },
+              {
+                "name": "links[].href",
+                "type": "string"
+              },
+              {
+                "name": "links[].rel",
+                "type": "string"
+              },
+              {
+                "name": "results",
+                "type": "array"
+              },
+              {
+                "name": "results[].clusterCount",
+                "type": "integer"
+              },
+              {
+                "name": "results[].created",
+                "type": "string"
+              },
+              {
+                "name": "results[].id",
+                "type": "string"
+              },
+              {
+                "name": "results[].links",
+                "type": "array"
+              },
+              {
+                "name": "results[].links[].href",
+                "type": "string"
+              },
+              {
+                "name": "results[].links[].rel",
+                "type": "string"
+              },
+              {
+                "name": "results[].name",
+                "type": "string"
+              },
+              {
+                "name": "results[].orgId",
+                "type": "string"
+              },
+              {
+                "name": "results[].regionUsageRestrictions",
+                "type": "string"
+              },
+              {
+                "name": "results[].tags",
+                "type": "array"
+              },
+              {
+                "name": "results[].tags[].key",
+                "type": "string"
+              },
+              {
+                "name": "results[].tags[].value",
+                "type": "string"
+              },
+              {
+                "name": "results[].withDefaultAlertsSettings",
+                "type": "boolean"
+              },
+              {
+                "name": "totalCount",
+                "type": "integer"
+              }
+            ],
+            "schema": {
+              "data": "OrganizationProjectListData",
+              "result": "OrganizationProjectListResult"
+            }
+          }
+        }
+      },
+      "ip_access_list": {
+        "file": "ip_access_list_tools.py",
+        "doc_source": "ip_access_list/",
+        "register_fn": "register_ip_access_list_tools",
+        "tools": {
+          "list_ip_access_list_entries": {
+            "endpoint": "GET /groups/{groupId}/accessList",
+            "description": "Returns all IP access list entries for one project.",
+            "tier": "GET",
+            "params": [
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies your project. Use the /groups endpoint to retrieve all projects to which the authenticated user has access. Format should match the following pattern: ^([a-f0-9]{24})$."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether Application wraps the response in an envelope JSON object. Some API clients cannot access the HTTP response headers or status code. To remediate this, set envelope=true in the query. Endpoints that return a list of results use the results object as an envelope. Application adds the status parameter to the response body. Default value is false."
+              },
+              {
+                "name": "includeCount",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response returns the total number of items (totalCount) in the response. Default value is true."
+              },
+              {
+                "name": "itemsPerPage",
+                "type": "integer",
+                "required": false,
+                "description": "Number of items that the response returns per page. Minimum value is 1, maximum value is 500. Default value is 100."
+              },
+              {
+                "name": "pageNum",
+                "type": "integer",
+                "required": false,
+                "description": "Number of the page that displays the current set of the total objects that the response returns. Minimum value is 1. Default value is 1."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default value is false."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "links",
+                "type": "array"
+              },
+              {
+                "name": "results",
+                "type": "array"
+              },
+              {
+                "name": "results[].awsSecurityGroup",
+                "type": "string"
+              },
+              {
+                "name": "results[].cidrBlock",
+                "type": "string"
+              },
+              {
+                "name": "results[].comment",
+                "type": "string"
+              },
+              {
+                "name": "results[].deleteAfterDate",
+                "type": "string"
+              },
+              {
+                "name": "results[].groupId",
+                "type": "string"
+              },
+              {
+                "name": "results[].ipAddress",
+                "type": "string"
+              },
+              {
+                "name": "results[].links",
+                "type": "array"
+              },
+              {
+                "name": "totalCount",
+                "type": "integer"
+              }
+            ],
+            "schema": {
+              "data": "IpAccessListEntryListData",
+              "result": "IpAccessListEntryListResult"
+            }
+          },
+          "get_ip_access_list_entry": {
+            "endpoint": "GET /groups/{groupId}/accessList/{entryValue}",
+            "description": "Returns one IP access list entry by its value.",
+            "tier": "GET",
+            "params": [
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies your project. Use the /groups endpoint to retrieve all projects to which the authenticated user has access. Format should match the following pattern: ^([a-f0-9]{24})$."
+              },
+              {
+                "name": "entryValue",
+                "type": "string",
+                "required": true,
+                "description": "Access list entry that you want to return from the project's IP access list. This value can use one of the following: one AWS security group ID, one IP address, or one CIDR block of addresses. For CIDR blocks that use a subnet mask, replace the forward slash (/) with its URL-encoded value (%2F). Format should match the following pattern: ^([0-9]{1,3}\\.){3}[0-9]{1,3}(%2[fF][0-9]{1,3})?|([0-9a-f]{1,4}\\:){7}[0-9a-f]{1,4}(%2[fF][0-9]{1,3})?|([0-9a-f]{1,4}\\:){1,6}\\:(%2[fF][0-9]{1,3})|(sg\\-[a-f0-9]{8})?$."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether Application wraps the response in an envelope JSON object. Some API clients cannot access the HTTP response headers or status code. To remediate this, set envelope=true in the query. Endpoints that return a list of results use the results object as an envelope. Application adds the status parameter to the response body. Default value is false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default value is false."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "awsSecurityGroup",
+                "type": "string"
+              },
+              {
+                "name": "cidrBlock",
+                "type": "string"
+              },
+              {
+                "name": "comment",
+                "type": "string"
+              },
+              {
+                "name": "deleteAfterDate",
+                "type": "string"
+              },
+              {
+                "name": "groupId",
+                "type": "string"
+              },
+              {
+                "name": "ipAddress",
+                "type": "string"
+              },
+              {
+                "name": "links",
+                "type": "array"
+              }
+            ],
+            "schema": {
+              "data": "IpAccessListEntryData",
+              "result": "IpAccessListEntryResult"
+            }
+          }
+        }
+      },
+      "database_users": {
+        "file": "database_users_tools.py",
+        "doc_source": "database_users/",
+        "register_fn": "register_database_users_tools",
+        "tools": {
+          "create_database_user": {
+            "endpoint": "POST /groups/{groupId}/databaseUsers",
+            "description": "Creates one new database user with specified roles and authentication method.",
+            "tier": "CREATE",
+            "params": [
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies your project. Use the /groups endpoint to retrieve all projects to which the authenticated user has access. Groups and projects are synonymous terms."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response is wrapped in an envelope JSON object, for API clients that cannot access HTTP response headers or status code. Default value is false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default value is false."
+              },
+              {
+                "name": "awsIAMType",
+                "type": "string",
+                "required": false,
+                "description": "Human-readable label that indicates whether the new database user authenticates with AWS IAM credentials associated with the user or the user's role. Values are NONE, USER, or ROLE. Default value is NONE."
+              },
+              {
+                "name": "databaseName",
+                "type": "string",
+                "required": true,
+                "description": "The database against which the database user authenticates. If the user authenticates with AWS IAM, x.509, LDAP, or OIDC Workload this value should be $external. If the user authenticates with SCRAM-SHA or OIDC Workforce, this value should be admin. Values are admin or $external."
+              },
+              {
+                "name": "deleteAfterDate",
+                "type": "string(date-time)",
+                "required": false,
+                "description": "Date and time when MongoDB Cloud deletes the user, expressed in ISO 8601 UTC format. Must be a future date within one week of the request."
+              },
+              {
+                "name": "description",
+                "type": "string",
+                "required": false,
+                "description": "Description of this database user. Maximum length is 100."
+              },
+              {
+                "name": "labels",
+                "type": "array[object]",
+                "required": false,
+                "description": "List that contains the key-value pairs for tagging and categorizing the MongoDB database user. These labels do not appear in the console."
+              },
+              {
+                "name": "ldapAuthType",
+                "type": "string",
+                "required": false,
+                "description": "Part of the LDAP record that the database uses to authenticate this database user on the LDAP host. Values are NONE, GROUP, or USER. Default value is NONE."
+              },
+              {
+                "name": "oidcAuthType",
+                "type": "string",
+                "required": false,
+                "description": "Indicates whether the new database user or group authenticates with OIDC federated authentication. Specify USER to create a federated authentication user, or IDP_GROUP to create a federated authentication group. Values are NONE, IDP_GROUP, or USER. Default value is NONE."
+              },
+              {
+                "name": "password",
+                "type": "string",
+                "required": false,
+                "description": "Alphanumeric string that authenticates this database user against the database specified in databaseName. Must be specified to authenticate with SCRAM-SHA. Does not appear in the response. Minimum length is 8."
+              },
+              {
+                "name": "roles",
+                "type": "array[object]",
+                "required": true,
+                "description": "List that provides the pairings of one role with one applicable database."
+              },
+              {
+                "name": "scopes",
+                "type": "array[object]",
+                "required": false,
+                "description": "List that contains clusters, MongoDB Atlas Data Lakes, and MongoDB Atlas Streams Workspaces that this database user can access. If omitted, MongoDB Cloud grants the database user access to all clusters, Data Lakes, and Streams Workspaces in the project."
+              },
+              {
+                "name": "username",
+                "type": "string",
+                "required": true,
+                "description": "Human-readable label that represents the user that authenticates to MongoDB. The format depends on the authentication method used (AWS IAM, x.509, LDAP, OIDC Workforce, OIDC Workload, or SCRAM-SHA). Maximum length is 1024."
+              },
+              {
+                "name": "x509Type",
+                "type": "string",
+                "required": false,
+                "description": "X.509 method that MongoDB Cloud uses to authenticate the database user. Specify MANAGED for application-managed X.509, or CUSTOMER for self-managed X.509. Values are NONE, CUSTOMER, or MANAGED. Default value is NONE."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "awsIAMType",
+                "type": "string"
+              },
+              {
+                "name": "databaseName",
+                "type": "string"
+              },
+              {
+                "name": "deleteAfterDate",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              },
+              {
+                "name": "labels",
+                "type": "array"
+              },
+              {
+                "name": "ldapAuthType",
+                "type": "string"
+              },
+              {
+                "name": "links",
+                "type": "array"
+              },
+              {
+                "name": "oidcAuthType",
+                "type": "string"
+              },
+              {
+                "name": "roles",
+                "type": "array"
+              },
+              {
+                "name": "scopes",
+                "type": "array"
+              },
+              {
+                "name": "username",
+                "type": "string"
+              },
+              {
+                "name": "x509Type",
+                "type": "string"
+              }
+            ],
+            "schema": {
+              "data": "DatabaseUserData",
+              "result": "DatabaseUserResult"
+            }
+          },
+          "get_database_user": {
+            "endpoint": "GET /groups/{groupId}/databaseUsers/{databaseName}/{username}",
+            "description": "Returns one database user by authentication database and username.",
+            "tier": "GET",
+            "params": [
+              {
+                "name": "groupId",
+                "type": "string",
+                "required": true,
+                "description": "Unique 24-hexadecimal digit string that identifies your project. Use the /groups endpoint to retrieve all projects to which the authenticated user has access. Groups and projects are synonymous terms."
+              },
+              {
+                "name": "databaseName",
+                "type": "string",
+                "required": true,
+                "description": "The database against which the database user authenticates. If the user authenticates with AWS IAM, x.509, LDAP, or OIDC Workload this value should be $external. If the user authenticates with SCRAM-SHA or OIDC Workforce, this value should be admin."
+              },
+              {
+                "name": "username",
+                "type": "string",
+                "required": true,
+                "description": "Human-readable label that represents the user that authenticates to MongoDB. The format depends on the authentication method used (AWS IAM, x.509, LDAP, OIDC Workforce, OIDC Workload, or SCRAM-SHA)."
+              },
+              {
+                "name": "envelope",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response is wrapped in an envelope JSON object, for API clients that cannot access HTTP response headers or status code. Default value is false."
+              },
+              {
+                "name": "pretty",
+                "type": "boolean",
+                "required": false,
+                "description": "Flag that indicates whether the response body should be in the prettyprint format. Default value is false."
+              }
+            ],
+            "response_fields": [
+              {
+                "name": "awsIAMType",
+                "type": "string"
+              },
+              {
+                "name": "databaseName",
+                "type": "string"
+              },
+              {
+                "name": "deleteAfterDate",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              },
+              {
+                "name": "labels",
+                "type": "array"
+              },
+              {
+                "name": "ldapAuthType",
+                "type": "string"
+              },
+              {
+                "name": "links",
+                "type": "array"
+              },
+              {
+                "name": "oidcAuthType",
+                "type": "string"
+              },
+              {
+                "name": "roles",
+                "type": "array"
+              },
+              {
+                "name": "scopes",
+                "type": "array"
+              },
+              {
+                "name": "username",
+                "type": "string"
+              },
+              {
+                "name": "x509Type",
+                "type": "string"
+              }
+            ],
+            "schema": {
+              "data": "DatabaseUserData",
+              "result": "DatabaseUserResult"
+            }
           }
         }
       }
